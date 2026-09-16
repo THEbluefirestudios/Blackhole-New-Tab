@@ -11,7 +11,7 @@
   width: 100vw;
   height: 100vh;
   object-fit: cover;
-  z-index: -1;
+  z-index: -2;
   pointer-events: none;
 }
 
@@ -276,4 +276,77 @@ dialog button {
   transform: translateY(0);
   pointer-events: auto;
   transition: transform .18s ease;
+}
+
+#h-sep {
+  margin: 10px 0;
+  opacity : .5;
+}
+
+.setting-row { /* w stack overflow in big 26*/
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8px 0;
+  font-size: 13px;
+}
+
+
+.setting-row label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+}
+
+
+.setting-row input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 40px;
+  height: 22px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .15);
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background .18s ease;
+}
+
+.setting-row input[type="checkbox"]::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #d1d1d1;
+  transition: transform .18s ease, background .18s ease;
+}
+
+.setting-row input[type="checkbox"]:checked {
+  background: #008cff;
+
+}
+
+.setting-row input[type="checkbox"]:checked::after {
+  transform: translateX(18px);
+  background: #000000;
+}
+
+#fade-overlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity .35s ease;
+}
+
+#fade-overlay.faded {
+  opacity: 0;
+  pointer-events: none;
 }
