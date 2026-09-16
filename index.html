@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
+        <div id="fade-overlay"></div>
         <!-- blackhole bg video -->
         <video id="blackhole-bg" autoplay loop muted playsinline>
             <source id="blackhole-warm" src="assets/blackhole-warm.mp4" type="video/mp4">
@@ -38,7 +39,19 @@
                 <h2>Blackhole New Tab</h2>
             </div>
             <p>A nice aesthetic new tab extension featuring a black hole.</p>
-            <a href="https://github.com/THEbluefirestudios/hyprtools" target="_blank" rel="noreferrer">GitHub Repository</a>
+            <a href="https://github.com/THEbluefirestudios/Blackhole-New-Tab" target="_blank" rel="noreferrer">GitHub Repository</a>
+            <hr id="h-sep">
+            <h3>Settings:</h3>
+            <div class="setting-row">
+                <label>Cool/Warm:
+                <input type="checkbox" id="set-warm" checked>
+                </label>
+            </div>
+            <div class="setting-row">
+                <label>24-hour format:
+                <input type="checkbox" id="set-24h">
+                </label>
+            </div>
         </div>
         <!-- tooltip for showing info -->
         <div id="tooltip" class="mica" hidden></div>
