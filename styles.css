@@ -1,0 +1,279 @@
+* { /* java ahh bracing. sry i just started learning it remonds me of java and my shaderpack*/
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#blackhole-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+  pointer-events: none;
+}
+
+body { 
+  font-family: system-ui, sans-serif; color: #fff; 
+}
+
+[hidden] {
+  display: none !important; /* fuck u css */
+}
+
+#clock-container {
+  position: fixed;
+  top: 175px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#clock {
+  font-size: 96px;
+  font-weight: 700;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, .6);
+}
+
+
+#the-clock {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+#ampm {
+  font-size: 25px;
+  opacity: .7;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, .6);
+}
+
+#date {
+  font-size: 20px;
+  font-weight: 400;
+  opacity: 0.7;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, .6);
+}
+
+/* mica effect like windows, that is, heavy blur + noise */
+
+.mica {
+  position: fixed;
+  background: rgba(30, 30, 30, 0.7);
+  backdrop-filter: blur(45px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 22px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, .45);
+}
+
+.mica::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: .2;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E"); /* didnt know the world wide consortium gave noise*/
+}
+
+/* dock realted styling*/
+#dock {
+  width: 75%; /*windhawk luminosity*/
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 5px 14px;
+}
+
+#apps {
+  display: flex;
+  gap: 14px;
+}
+
+#dock button {
+  width: 33px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: transform .15s ease;
+}
+
+#dock #start-btn {
+  width: 50px;
+  height: 50px;
+}
+
+#dock button:hover {
+  transform: /*translateY(-6px)*/scale(1.05); /* yk how the mac dock buttons like scale up when u hover, yeah
+  its prolly my most fav effect in all of ui, apple kinda goated in design, thats why everyone copy*/
+  /* nvm i failed*/
+}
+
+#dock button img {
+  width: 100%; height: 100%; border-radius: 10px; display: block; 
+}
+
+#add-btn {
+  font-size : 24px;
+  opacity: .7;
+  color: #fff;
+}
+
+#tooltip {
+  position: fixed;
+  transform: translateX(-50%);
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, .8);
+  font-size: 13px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* the context menu related styling*/
+#context-menu { 
+  display: flex; flex-direction: column; padding: 6px; border-radius: 12px; z-index: 1001; 
+  align-self: center;
+  width: 160px;
+  background: rgba(30, 30, 30, 0.7);
+}
+
+#context-menu button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background: none;
+  color: #fff;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+#context-menu button:hover { background: rgba(255, 255, 255, .15); } /* i am ahppy i made a class for mica, java inheritance yk */
+
+/* edit dialog styling*/
+
+dialog {
+  background: #1e1e28;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, .15);
+  border-radius: 16px;
+  padding: 22px;
+  min-width: 320px;
+  align-self: center;
+  justify-self: center;
+}
+
+dialog::backdrop { 
+  background: rgba(0, 0, 0, .5); 
+}
+
+dialog h3 { 
+  margin-bottom: 14px; 
+}
+
+dialog label { 
+  display: block; font-size: 13px; opacity: .8; margin-bottom: 12px; 
+}
+
+dialog input {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .07);
+  color: #fff;
+  font-size: 14px;
+}
+dialog menu { 
+  display: flex; justify-content: flex-end; gap: 8px; 
+}
+
+dialog button { 
+  padding: 8px 16px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; 
+}
+
+#f-cancel { 
+  background: rgba(255, 255, 255, .1); color: #fff; 
+}
+
+#f-save { 
+  background: #6c8cff; color: #fff; 
+}
+
+/*oops i forgor*/
+
+
+#start-menu h2 { 
+  font-size: 20px; margin-bottom: 0; 
+}
+
+#start-menu p {
+  font-size: 13px;
+  line-height: 1.5;
+  opacity: .85;
+  margin-bottom: 14px;
+}
+
+#start-menu a {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .12);
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+#start-menu-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+#start-menu-header img {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+}
+
+
+#start-menu a:hover { 
+  background: rgba(255, 255, 255, .22); 
+}
+
+.dock-sep {
+  width: 2px;
+  height: 32px;
+  background: rgba(255, 255, 255, .2);
+  border-radius: 1px;
+  margin: 0 8px;
+}
+
+#start-menu {
+  width: 300px; padding: 20px; z-index: -1;
+  opacity: 0;
+  transform: translateY(300px);
+  pointer-events: none;
+  transition: transform .18s ease, opacity 0s linear .18s;
+}
+
+#start-menu.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  transition: transform .18s ease;
+}

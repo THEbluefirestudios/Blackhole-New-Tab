@@ -1,0 +1,19 @@
+{
+    "manifest_version": 3,
+    "name": "Blackhole New Tab",
+    "version": "1.0",
+    "description": "A nice simple, new tab extension with giant blackhole OwO",
+    "chrome_url_overrides": {
+        "newtab": "index.html"
+    },
+    "icons": {
+        "128": "assets/icon.png"
+    },
+    "action": {
+        "default_icon": "assets/icon.png",
+        "default_title": "Blackhole New Tab"
+    },
+    "permissions": [
+        "storage"
+    ]
+}

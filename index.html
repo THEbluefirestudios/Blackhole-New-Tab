@@ -1,0 +1,64 @@
+<!DOCTYPE html> 
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Blackhole New Tab</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <!-- blackhole bg video -->
+        <video id="blackhole-bg" autoplay loop muted playsinline>
+            <source id="blackhole-warm" src="assets/blackhole-warm.mp4" type="video/mp4">
+        </video>
+        
+        <!-- clock -->
+        <div id="clock-container">
+            <div id="the-clock">
+                <time id="clock"></time>
+                <span id="ampm"></span>
+            </div>
+            <div id="date"></div>
+        </div>
+        
+        <!-- macos style dock/taskbar -->
+        <nav id = "dock" class = "mica">
+            <button id="start-btn" title = "Start Menu">
+                <img src="assets/icon.png" alt="Start Menu">
+            </button>
+            <div class="dock-sep" aria-hidden="true"></div>
+            <div id = "apps">
+            </div>
+            <button id="add-btn" title="Add shortcut">+</button>
+        </nav>
+        <!-- startmenu, it just shows project info-->
+        <div id="start-menu" class="mica">
+            <div id="start-menu-header">
+                <img src="assets/icon.png" alt="Blackhole New Tab">
+                <h2>Blackhole New Tab</h2>
+            </div>
+            <p>A nice aesthetic new tab extension featuring a black hole.</p>
+            <a href="https://github.com/THEbluefirestudios/hyprtools" target="_blank" rel="noreferrer">GitHub Repository</a>
+        </div>
+        <!-- tooltip for showing info -->
+        <div id="tooltip" class="mica" hidden></div>
+        <!-- context menu to edit delete shortcuts-->
+        <div id="context-menu" class="mica" hidden>
+            <button id="sc-edit">Edit</button>
+            <button id="sc-delete">Delete</button>
+        </div>
+        <!-- dialog for editing/adding shortcuts-->
+        <dialog id="edit-dialog" class="mica">
+            <form>
+                <h3 id="dialog-title">Add Shortcut</h3>
+                <label>Name <input type="text" id="f-name" required autocomplete = "off"></label>
+                <label>URL <input type="text" id="f-url" required autocomplete = "off" placeholder="https://hacklub.com"></label>
+                <menu>
+                    <button type="button" id="f-cancel">Cancel</button>
+                    <button type="submit" id="f-save">Save</button>
+                </menu>
+            </form>
+        </dialog>
+        <script src="app.js"></script>
+    </body>
+</html>
