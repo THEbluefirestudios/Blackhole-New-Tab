@@ -7,12 +7,22 @@ const contextMenu = document.getElementById("context-menu");
 const dialog = document.getElementById("edit-dialog");
 const ampmEl = document.getElementById("ampm");
 const dateEl = document.getElementById("date");
+const videoEl = document.getElementById("blackhole-bg");
+const startBtnImg = document.querySelector("#start-btn img");
+const headerImg = document.querySelector("#start-menu-header img");
+const setWarm = document.getElementById("set-warm");
+const set24h = document.getElementById("set-24h");
 
 // tick the clock every 1000ms which is 1 second, format is hh:mm
 function tick() {
-  clock.textContent = new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }).replace(/\s?[AP]M/i, "");
-  ampmEl.textContent = new Date().getHours() < 12 ? "AM" : "PM";
-  dateEl.textContent = new Date().toLocaleDateString([], { weekday: "long", month: "long", day: "numeric" });
+  const now = new Date();
+  clock.textContent = now.toLocaleTimeString([], {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: !settings.hour24,
+  }).replace(/\s?[AP]M/i, "");
+  ampmEl.textContent = settings.hour24 ? "" : (now.getHours() < 12 ? "AM" : "PM");
+  dateEl.textContent = now.toLocaleDateString([], { weekday: "long", month: "long", day: "numeric" });
 }
 
 const DEFAULT_APPS = [
@@ -57,14 +67,61 @@ async function saveApps() {
     }
 }
 
+
+// theme shi
+
+function applyTheme(warm) {
+  videoEl.src = warm ? "assets/blackhole-warm.mp4" : "assets/blackhole-cold.mp4";
+  const icon = warm ? "assets/icon.png" : "assets/icon2.png";
+  startBtnImg.src = icon;
+  headerImg.src = icon;
+
+  let fav = document.querySelector("link[rel='icon']");
+  if (!fav) {
+    fav = document.createElement("link");
+    fav.rel = "icon";
+    document.head.append(fav);
+  }
+  fav.href = icon;
+}
+
+let settings = {
+  warm: true,
+  hour24: false,
+};
+
+async function loadSettings() {
+  if (!hasStorage()) return;
+  const { settings: stored } = await chrome.storage.local.get("settings");
+  if (stored) settings = stored;
+  setWarm.checked = settings.warm;
+  set24h.checked = settings.hour24;
+}
+
+async function saveSettings() {
+  if (hasStorage()) await chrome.storage.local.set({ settings });
+}
+
+setWarm.addEventListener("change", () => {
+  settings.warm = setWarm.checked;
+  applyTheme(settings.warm);
+  saveSettings();
+});
+
+set24h.addEventListener("change", () => {
+  settings.hour24 = set24h.checked;
+  saveSettings();
+});
+
 //get website icon, alsoc alled favicon
 function getFavicon(url) {
   try {
-    return `https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${encodeURIComponent(new URL(url).href)}&size=128`;
+    return `${new URL(url).origin}/favicon.svg`;
   } catch {
     return letterIcon(url);
   }
 }
+
 function letterIcon(name) {
     const letter = (name[0] || "▣").toUpperCase();
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect width="64" height="64" rx="14" fill="#3a3a4a"/><text x="32" y="42" font-size="30" text-anchor="middle" fill="#fff" font-family="system-ui">${letter}</text></svg>`; //oh my
@@ -79,7 +136,13 @@ function drawAppsonDock() {
 
         img.src = getFavicon(app.url);
         img.alt = app.name;
-        img.onerror = () => (img.src = letterIcon(app.name));
+        img.onerror = () => {
+        try {
+            const u = new URL(app.url);
+            if (!img.src.endsWith("/favicon.ico")) { img.src = `${u.origin}/favicon.ico`; return; }
+        } catch {}
+            img.src = letterIcon(app.name);
+        };
         btn.append(img);
         btn.addEventListener("click", () => openApp(i));
         btn.addEventListener("contextmenu", (e) => showContextMenu(e, i));
@@ -206,6 +269,14 @@ if (hasStorage()) {
   });
 }
 
-tick();
-setInterval(tick, 1000);
+// think of it as if __name__ == "__main__"
+loadSettings().then(() => {
+  applyTheme(settings.warm);
+  requestAnimationFrame(() => {
+      document.getElementById("fade-overlay").classList.add("faded");
+      setTimeout(() => document.getElementById("fade-overlay").remove(), 200);
+    });
+  tick();
+  setInterval(tick, 1000);
+});
 loadApps().then(drawAppsonDock);
