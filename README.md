@@ -29,7 +29,7 @@ An aesthetic New Tab extension for Chromium based browsers, featuring a self ren
 
 ## How to install?
 
-### Via Github releases
+### Via Github releases (`.crx`, DOES NOT WORK ON CHROME)
 
 1. Go to the [Github releases page](https://github.com/THEbluefirestudios/Blackhole-New-Tab/releases/) and download the latest version (the `.crx` file)
    <img width="1103" height="534" alt="image" src="https://github.com/user-attachments/assets/2bfbe20a-d366-4f77-9efd-f087d22b7058" />
@@ -43,6 +43,24 @@ An aesthetic New Tab extension for Chromium based browsers, featuring a self ren
 
 
 ---
+
+
+### Via Github releases (`.zip`)
+
+1. Go to the [Github releases page](https://github.com/THEbluefirestudios/Blackhole-New-Tab/releases/) and download the latest version (the `.zip` file)
+   <img width="1056" height="668" alt="image" src="https://github.com/user-attachments/assets/06674298-39be-4bd3-9096-4c9fba194ce5" />
+2. Navigate to the extenstion page of your browser and toggle on the `Developer Mode` Switch
+   <img width="1905" height="113" alt="image" src="https://github.com/user-attachments/assets/aa8bca96-ba7b-4423-917a-1bc5bc91dc9b" />
+3. Unzip the file you just downloaded.
+
+   <img width="618" height="452" alt="image" src="https://github.com/user-attachments/assets/809d9faa-48df-4e83-b6f0-db222017a671" />
+4. Click on "Load Unpacked" and select the unzipped folder.
+   <img width="1905" height="113" alt="image" src="https://github.com/user-attachments/assets/aa8bca96-ba7b-4423-917a-1bc5bc91dc9b" />
+5. Enjoy your new tab!
+   <img width="1919" height="927" alt="image" src="https://github.com/user-attachments/assets/a1ad133e-8600-4448-9af1-c523099859b4" />
+
+---
+
 
 ### Via the Microsoft Edge Addons store (Microsoft Edge ONLY)
 
